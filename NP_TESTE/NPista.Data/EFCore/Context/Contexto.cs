@@ -7,6 +7,7 @@ namespace NPista.Data.EFCore.Context
     {
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Cartao> Cartoes { get; set; }
+        public DbSet<Compra> Compras { get; set; }
 
         public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
@@ -15,7 +16,7 @@ namespace NPista.Data.EFCore.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseSerialColumns();
-
+            
             base.OnModelCreating(modelBuilder);
         }
     
