@@ -32,7 +32,7 @@ namespace NPista.API
         {
             services = ConfigureServer(services);
             services = ConfigureData(services);
-            
+
             services.AddControllers();
         }
 
