@@ -1,4 +1,4 @@
-﻿namespace NPista.Core.Models.Interfaces
+﻿namespace NPista.Core.Interfaces
 {
     public interface ICartao
     {

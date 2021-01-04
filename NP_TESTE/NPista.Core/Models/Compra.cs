@@ -1,4 +1,4 @@
-﻿using NPista.Core.Models.Interfaces;
+﻿using NPista.Core.Interfaces;
 
 namespace NPista.Core.Models
 {
