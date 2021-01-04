@@ -16,5 +16,10 @@ namespace NPista.Data.EFCore.Repositorios
         }
 
         public async Task<IEnumerable<Produto>> GetAllProdutosAsync() => await BuscarTodos().ToListAsync();
+
+        public async Task ExcluirProduto(int id)
+        {
+            await ExcluirAsync(p => p.Id == id);
+        }
     }
 }
