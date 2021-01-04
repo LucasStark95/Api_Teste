@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPista.Core", "NPista.Core\NPista.Core.csproj", "{1E12BFC6-21BF-4FC8-B3A0-31662A260223}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPista.Data", "NPista.Data\NPista.Data.csproj", "{64401AE7-2DEB-4FE5-88D8-3D46B614AEE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NPista.Data", "NPista.Data\NPista.Data.csproj", "{64401AE7-2DEB-4FE5-88D8-3D46B614AEE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPista.API", "NPista.API\NPista.API.csproj", "{7735CC96-A0D7-416C-A4FF-85B701DFE30A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{64401AE7-2DEB-4FE5-88D8-3D46B614AEE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64401AE7-2DEB-4FE5-88D8-3D46B614AEE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64401AE7-2DEB-4FE5-88D8-3D46B614AEE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7735CC96-A0D7-416C-A4FF-85B701DFE30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7735CC96-A0D7-416C-A4FF-85B701DFE30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7735CC96-A0D7-416C-A4FF-85B701DFE30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7735CC96-A0D7-416C-A4FF-85B701DFE30A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
