@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NPista.Core.Models;
+using System;
 
 namespace NPista.Data.EFCore.Context
 {
@@ -16,6 +17,10 @@ namespace NPista.Data.EFCore.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseSerialColumns();
+
+            modelBuilder.Entity<Compra>()
+                .Property(c => c.DataCompra)
+                .HasDefaultValue(DateTime.Now);
             
             base.OnModelCreating(modelBuilder);
         }
