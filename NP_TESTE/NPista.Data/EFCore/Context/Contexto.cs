@@ -21,7 +21,19 @@ namespace NPista.Data.EFCore.Context
             modelBuilder.Entity<Compra>()
                 .Property(c => c.DataCompra)
                 .HasDefaultValue(DateTime.Now);
-            
+
+            modelBuilder.Entity<Produto>()
+                .HasMany(p => p.Compras)
+                .WithOne(c => c.Produto)
+                .HasForeignKey(c => c.ProdutoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Cartao>()
+                .HasMany(c => c.Compras)
+                .WithOne(ct => ct.Cartao)
+                .HasForeignKey(c => c.CartaoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
     
