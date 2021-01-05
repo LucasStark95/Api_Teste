@@ -40,7 +40,7 @@ namespace NPista.API.Controllers
         {
             try
             {
-                var produtoDB = await _produtoRepositorio.GetProdutoByIdAsync(id);
+                var produtoDB = await _produtoRepositorio.GetProdutoResponseByIdAsync(id);
                 return new JsonResult(produtoDB);
             }
             catch

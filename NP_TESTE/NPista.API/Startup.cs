@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using NPista.API.Helpers;
+using NPista.Core.Models;
 using NPista.Data.EFCore.Context;
 using NPista.Data.EFCore.Helpers;
 using NPista.Data.EFCore.Repositorios;
@@ -36,6 +36,9 @@ namespace NPista.API
         {
             services = ConfigureServer(services);
             services = ConfigureData(services);
+            services = ConfigureAppSettings(services);
+
+            services.AddHttpClient();
 
             services.AddControllers()
                 .AddNewtonsoftJson()
@@ -103,6 +106,19 @@ namespace NPista.API
             foreach (var t in dataServiceTypes)
                 services.AddScoped(t);
             
+            return services;
+        }
+
+        private IServiceCollection ConfigureAppSettings(IServiceCollection services)
+        {
+            var appSettings = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            var appSettingsSection = appSettings.GetSection("AppSettings");
+
+            services.Configure<AppSettings>(appSettingsSection);
+
             return services;
         }
 
