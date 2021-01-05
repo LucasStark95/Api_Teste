@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using NPista.API.Helpers;
 using NPista.Data.EFCore.Context;
 using NPista.Data.EFCore.Helpers;
@@ -12,6 +14,8 @@ using NPista.Data.EFCore.Repositorios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mime;
 using System.Reflection;
 
 namespace NPista.API
@@ -33,7 +37,19 @@ namespace NPista.API
             services = ConfigureServer(services);
             services = ConfigureData(services);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = _ =>
+                    {
+                        var result = new BadRequestObjectResult("Os valores informados não são válidos.");
+                        result.ContentTypes.Add(MediaTypeNames.Application.Json);
+                        result.StatusCode = (int)HttpStatusCode.PreconditionFailed;
+
+                        return result;
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

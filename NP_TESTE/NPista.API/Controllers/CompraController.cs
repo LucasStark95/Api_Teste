@@ -10,24 +10,24 @@ namespace NPista.API.Controllers
     public class CompraController : ControllerBase
     {
         private readonly CompraRepositorio _compraRepositorio;
+        private readonly ProdutoRepositorio _produtoRepositorio;
 
-        public CompraController(CompraRepositorio compraRepositorio)
+        public CompraController(CompraRepositorio compraRepositorio, ProdutoRepositorio produtoRepositorio)
         {
             _compraRepositorio = compraRepositorio;
+            _produtoRepositorio = produtoRepositorio;
         }
 
         // POST api/compras
         [HttpPost]
-        public async Task<ActionResult<Compra>> CreateProduto(Compra compra)
+        public async Task<ActionResult<Compra>> CreateCompra(Compra compra)
         {
             try
             {
                 var compraDB = await _compraRepositorio.AdicionarAsync(compra);
-
-                if (compraDB != null)
-                    return Ok();
-                else
-                    return BadRequest();
+                await _produtoRepositorio.BaixaEstoqueByIdAsync(compra.ProdutoId, compra.QtdeComprada);
+               
+                return Ok("Venda realizada com sucesso.");
             }
             catch
             {

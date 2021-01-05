@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using NPista.Data.EFCore.Repositorios;
 using NPista.Core.Models;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using NPista.Core.Responses;
 
 namespace NPista.API.Controllers
 {
@@ -27,33 +26,37 @@ namespace NPista.API.Controllers
             try
             {
                 var produtos = await _produtoRepositorio.GetAllProdutosAsync();
-                return produtos.ToList();
+                return new JsonResult(produtos.ToList());
             }
             catch 
             {
-                return BadRequest(400);
+                return BadRequest("Ocorreu um erro desconhecido.");
             }
         }
 
         // GET api/produtos/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<ProdutoResponse>> Get(int id)
         {
-            return "value";
+            try
+            {
+                var produtoDB = await _produtoRepositorio.GetProdutoByIdAsync(id);
+                return new JsonResult(produtoDB);
+            }
+            catch
+            {
+                return BadRequest("Ocorreu um erro desconhecido.");
+            }
         }
 
         // POST api/produtos
         [HttpPost]
-        public async Task<ActionResult<Produto>> CreateProduto(Produto produto)
+        public async Task<ActionResult> CreateProduto(Produto produto)
         {
             try
             {
                 var produtoDB = await _produtoRepositorio.AdicionarAsync(produto);
-
-                if (produtoDB != null)
-                    return Ok();
-                else
-                    return BadRequest();
+                return Ok("Produto Cadastrado");
             }
             catch
             {
