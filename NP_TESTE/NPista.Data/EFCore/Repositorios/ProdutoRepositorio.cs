@@ -13,9 +13,9 @@ namespace NPista.Data.EFCore.Repositorios
     {
         public ProdutoRepositorio(Contexto contexto) : base(contexto) { }
 
-        public async Task<ProdutoResponse> GetProdutoByIdAsync(int id) 
+        public async Task<ProdutoResponse> GetProdutoResponseByIdAsync(int id) 
         {
-            var produto = await GetProduto(id);
+            var produto = await GetProdutoByIdAsync(id);
 
             if (produto == null) throw new NullReferenceException();
 
@@ -41,7 +41,7 @@ namespace NPista.Data.EFCore.Repositorios
 
         public async Task BaixaEstoqueByIdAsync(int id, int valor)
         {
-            var produto = await GetProduto(id);
+            var produto = await GetProdutoByIdAsync(id);
 
             if (produto == null || produto.QtdeEstoque - valor < 0) throw new NullReferenceException();
 
@@ -50,10 +50,14 @@ namespace NPista.Data.EFCore.Repositorios
             await AtualizarAsync(produto);
         }
 
-        private async Task<Produto> GetProduto(int id)
+        public async Task<Produto> GetProdutoByIdAsync(int id)
         {
-            return await Buscar(p => p.Id == id)
+            var result = await Buscar(p => p.Id == id)
                 .Include(p => p.Compras).FirstOrDefaultAsync();
+
+            if (result == null) throw new NullReferenceException();
+
+            return result;
         }
 
         private Compra GetLastSale(Produto produto)
