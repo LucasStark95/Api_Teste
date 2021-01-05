@@ -9,7 +9,7 @@ namespace NPista.Core.Responses
         public string Nome { get; set; }
         public int QtdeEstoque { get; set; }
         public double ValorUnitario { get; set; }
-        public DateTime DataUltimaCompra { get; set; }
+        public DateTime? DataUltimaCompra { get; set; }
         public double ValorUltimaCompra { get; set; }
 
     }
