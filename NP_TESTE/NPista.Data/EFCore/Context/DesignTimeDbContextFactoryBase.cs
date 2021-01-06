@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Design;
 using NPista.Data.EFCore.Helpers;
 using System;
-using System.IO;
 
 namespace NPista.Data.EFCore.Context
 {
@@ -11,25 +10,13 @@ namespace NPista.Data.EFCore.Context
     {
         public TContext CreateDbContext(string[] args)
         {
-            return Create(
-                Directory.GetCurrentDirectory(),
-                Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
+            return Create();
         }
         protected abstract TContext CreateNewInstance(
             DbContextOptions<TContext> options);
 
-        public TContext Create()
-        {
-            var environmentName =
-                Environment.GetEnvironmentVariable(
-                    "ASPNETCORE_ENVIRONMENT");
 
-            var basePath = AppContext.BaseDirectory;
-
-            return Create(basePath, environmentName);
-        }
-
-        private TContext Create(string basePath, string environmentName)
+        private TContext Create()
         {
             var connstr = ConnectionHelper.GetConnectionString();
 

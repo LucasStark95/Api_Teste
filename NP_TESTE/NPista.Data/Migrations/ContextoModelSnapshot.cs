@@ -49,36 +49,6 @@ namespace NPista.Data.Migrations
                     b.ToTable("Cartoes");
                 });
 
-            modelBuilder.Entity("NPista.Core.Models.Compra", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseSerialColumn();
-
-                    b.Property<int>("CartaoId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DataCompra")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 1, 5, 17, 28, 2, 870, DateTimeKind.Local).AddTicks(2572));
-
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("QtdeComprada")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartaoId");
-
-                    b.HasIndex("ProdutoId");
-
-                    b.ToTable("Compras");
-                });
-
             modelBuilder.Entity("NPista.Core.Models.Produto", b =>
                 {
                     b.Property<int>("Id")
@@ -101,7 +71,37 @@ namespace NPista.Data.Migrations
                     b.ToTable("Produtos");
                 });
 
-            modelBuilder.Entity("NPista.Core.Models.Compra", b =>
+            modelBuilder.Entity("NPista.Core.Models.Venda", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseSerialColumn();
+
+                    b.Property<int>("CartaoId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DataCompra")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp without time zone")
+                        .HasDefaultValue(new DateTime(2021, 1, 5, 21, 9, 48, 499, DateTimeKind.Local).AddTicks(8536));
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("QtdeComprada")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartaoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Vendas");
+                });
+
+            modelBuilder.Entity("NPista.Core.Models.Venda", b =>
                 {
                     b.HasOne("NPista.Core.Models.Cartao", "Cartao")
                         .WithMany("Compras")
@@ -110,7 +110,7 @@ namespace NPista.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("NPista.Core.Models.Produto", "Produto")
-                        .WithMany("Compras")
+                        .WithMany("Vendas")
                         .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -127,7 +127,7 @@ namespace NPista.Data.Migrations
 
             modelBuilder.Entity("NPista.Core.Models.Produto", b =>
                 {
-                    b.Navigation("Compras");
+                    b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618
         }
