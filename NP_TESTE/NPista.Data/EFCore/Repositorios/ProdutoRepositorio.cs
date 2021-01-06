@@ -53,16 +53,16 @@ namespace NPista.Data.EFCore.Repositorios
         public async Task<Produto> GetProdutoByIdAsync(int id)
         {
             var result = await Buscar(p => p.Id == id)
-                .Include(p => p.Compras).FirstOrDefaultAsync();
+                .Include(p => p.Vendas).FirstOrDefaultAsync();
 
             if (result == null) throw new NullReferenceException();
 
             return result;
         }
 
-        private Compra GetLastSale(Produto produto)
+        private Venda GetLastSale(Produto produto)
         {
-            return produto?.Compras?.OrderByDescending(o => o.DataCompra).SingleOrDefault();
+            return produto?.Vendas?.OrderByDescending(o => o.DataCompra).SingleOrDefault();
         }
     }
 }

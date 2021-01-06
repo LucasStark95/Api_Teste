@@ -15,6 +15,6 @@ namespace NPista.Core.Models
         [Required]
         [Range(0, int.MaxValue)]
         public double ValorUnitario { get; set; }
-        public IList<Compra> Compras { get; set; }
+        public IList<Venda> Vendas { get; set; }
     }
 }

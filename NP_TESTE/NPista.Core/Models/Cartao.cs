@@ -17,6 +17,6 @@ namespace NPista.Core.Models
         public string Bandeira { get; set; }
         public string Cvv { get; set; }
 
-        public IList<Compra> Compras { get; set; }
+        public IList<Venda> Compras { get; set; }
     }
 }

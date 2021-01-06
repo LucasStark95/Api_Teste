@@ -8,7 +8,7 @@ namespace NPista.Data.EFCore.Context
     {
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Cartao> Cartoes { get; set; }
-        public DbSet<Compra> Compras { get; set; }
+        public DbSet<Venda> Vendas { get; set; }
 
         public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
@@ -18,12 +18,12 @@ namespace NPista.Data.EFCore.Context
         {
             modelBuilder.UseSerialColumns();
 
-            modelBuilder.Entity<Compra>()
+            modelBuilder.Entity<Venda>()
                 .Property(c => c.DataCompra)
                 .HasDefaultValue(DateTime.Now);
 
             modelBuilder.Entity<Produto>()
-                .HasMany(p => p.Compras)
+                .HasMany(p => p.Vendas)
                 .WithOne(c => c.Produto)
                 .HasForeignKey(c => c.ProdutoId)
                 .OnDelete(DeleteBehavior.Cascade);

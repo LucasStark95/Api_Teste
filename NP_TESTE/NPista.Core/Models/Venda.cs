@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace NPista.Core.Models
 {
-    public class Compra : IEntity
+    public class Venda : IEntity
     {
         public int Id { get; set; }
         public int CartaoId { get; set; }
