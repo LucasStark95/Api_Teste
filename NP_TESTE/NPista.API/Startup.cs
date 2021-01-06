@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using NPista.API.Helpers;
 using NPista.Core.Models;
 using NPista.Data.EFCore.Context;
@@ -13,6 +14,7 @@ using NPista.Data.EFCore.Helpers;
 using NPista.Data.EFCore.Repositorios;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
@@ -20,18 +22,35 @@ using System.Reflection;
 
 namespace NPista.API
 {
+    /// <summary>
+    /// Statup.
+    /// Classe Responsavel pela inicialização da API.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Configurações da aplicação.
+        /// </summary>
         public IConfiguration Configuration { get; }
+        /// <summary>
+        /// Variável de ambiente.
+        /// </summary>
         public IWebHostEnvironment CurrentEnvironment { get; }
 
+        /// <summary>
+        /// COnstrutor da Classe.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="env"></param>
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             CurrentEnvironment = env;
         }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// Método de definições e configurações dos serviços.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services = ConfigureServer(services);
@@ -39,6 +58,28 @@ namespace NPista.API
             services = ConfigureAppSettings(services);
 
             services.AddHttpClient();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Documentação API",
+                    Version = "v1",
+                    Description = "API para prova de avaliação técnica.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Antonio Lucas de Almeida",
+                        Url = new Uri("https://github.com/LucasStark95")
+                    }
+
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+
+
+            });
 
             services.AddControllers()
                 .AddNewtonsoftJson()
@@ -55,7 +96,11 @@ namespace NPista.API
                 });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// Método de definições e configurações do APP.
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -65,6 +110,12 @@ namespace NPista.API
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.RoutePrefix = string.Empty; 
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Documentação Api");
+            });
 
             app.UseRouting();
 

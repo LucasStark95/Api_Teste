@@ -5,7 +5,6 @@ namespace NPista.Data.EFCore.Repositorios
 {
     /// <summary>
     /// Venda Repositório.
-    /// Classe reponsável pelas vendas
     /// </summary>
     public class VendaRepositorio : RepositorioBase<Venda>
     {

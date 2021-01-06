@@ -4,6 +4,10 @@ using System;
 
 namespace NPista.Data.EFCore.Context
 {
+    /// <summary>
+    /// Contexto.
+    /// Classe context, responsável pela comunicação e configuração da comunicação do banco dados.
+    /// </summary>
     public class Contexto : DbContext
     {
         public DbSet<Produto> Produtos { get; set; }
@@ -14,6 +18,10 @@ namespace NPista.Data.EFCore.Context
         {
         }
 
+        /// <summary>
+        /// Definições das entidades para o mapameamento relacional.
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.UseSerialColumns();

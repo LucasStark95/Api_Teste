@@ -8,17 +8,29 @@ using NPista.Core.Responses;
 
 namespace NPista.API.Controllers
 {
+    /// <summary>
+    /// Produto Controller.
+    /// Classe responsável pelo recebimento das requisições referente ao produto.
+    /// </summary>
     [Route("api/produtos")]
     [ApiController]
     public class ProdutoController : ControllerBase
     {
         private readonly ProdutoRepositorio _produtoRepositorio;
 
+        /// <summary>
+        /// Construtor da classe.
+        /// </summary>
+        /// <param name="produtoRepositorio"></param>
         public ProdutoController(ProdutoRepositorio produtoRepositorio)
         {
             _produtoRepositorio = produtoRepositorio;
         }
 
+        /// <summary>
+        /// Retorna todos os produtos cadastrados.
+        /// </summary>
+        /// <returns></returns>
         // GET: api/produtos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Produto>>> GetAllProdutos()
@@ -34,13 +46,18 @@ namespace NPista.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Retorna um produto detalhado especifico por meio do seu identificador.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET api/produtos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProdutoResponse>> Get(int id)
+        public async Task<ActionResult<ProdutoResponse>> GetProdutoDetails(int id)
         {
             try
             {
-                var produtoDB = await _produtoRepositorio.GetProdutoResponseByIdAsync(id);
+                var produtoDB = await _produtoRepositorio.GetProdutoDetailsByIdAsync(id);
                 return new JsonResult(produtoDB);
             }
             catch
@@ -49,6 +66,11 @@ namespace NPista.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Armazenar um produto da base de dados.
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <returns></returns>
         // POST api/produtos
         [HttpPost]
         public async Task<ActionResult> CreateProduto(Produto produto)
@@ -64,6 +86,11 @@ namespace NPista.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Remove um produto da base de dados.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // DELETE api/produtos/5
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProduto(int id)

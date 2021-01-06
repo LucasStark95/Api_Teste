@@ -9,11 +9,19 @@ using System.Threading.Tasks;
 
 namespace NPista.Data.EFCore.Repositorios
 {
+    /// <summary>
+    /// Produto Repositório.
+    /// </summary>
     public class ProdutoRepositorio : RepositorioBase<Produto>
     {
         public ProdutoRepositorio(Contexto contexto) : base(contexto) { }
-
-        public async Task<ProdutoResponse> GetProdutoResponseByIdAsync(int id) 
+        
+        /// <summary>
+        /// Busca o produto detalhado na base de dados.
+        /// </summary>
+        /// <param name="id">Id do Produto</param>
+        /// <returns></returns>
+        public async Task<ProdutoResponse> GetProdutoDetailsByIdAsync(int id) 
         {
             var produto = await GetProdutoByIdAsync(id);
 
@@ -32,13 +40,28 @@ namespace NPista.Data.EFCore.Repositorios
             };
         }
 
+        /// <summary>
+        /// Retorna todos os produtos armazenados.
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Produto>> GetAllProdutosAsync() => await BuscarTodos().ToListAsync();
 
+        /// <summary>
+        /// Exclui o registro do produto na base de dadps.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task ExcluirProduto(int id)
         {
             await ExcluirAsync(p => p.Id == id);
         }
 
+        /// <summary>
+        /// Dar baixa no estoque de determinado produto pelo identificador.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="valor"></param>
+        /// <returns></returns>
         public async Task BaixaEstoqueByIdAsync(int id, int valor)
         {
             var produto = await GetProdutoByIdAsync(id);
@@ -50,6 +73,11 @@ namespace NPista.Data.EFCore.Repositorios
             await AtualizarAsync(produto);
         }
 
+        /// <summary>
+        /// Busca um produto pelo seu identificador.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Produto> GetProdutoByIdAsync(int id)
         {
             var result = await Buscar(p => p.Id == id)

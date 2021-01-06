@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace NPista.Data.EFCore.Repositorios
 {
+    /// <summary>
+    /// Repositório Base.
+    /// Classe abstrata com os métodos comuns utilizados entre os repositórios.
+    /// </summary>
+    /// <typeparam name="TEntity"></typeparam>
     public abstract class RepositorioBase<TEntity> : IDisposable, IRepositorio<TEntity> where TEntity : class
     {
         private readonly DbContext _contexto;

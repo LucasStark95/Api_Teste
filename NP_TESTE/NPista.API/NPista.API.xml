@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NPista.API</name>
+    </assembly>
+    <members>
+        <member name="T:NPista.API.Controllers.CompraController">
+            <summary>
+            Compra COntroller.
+            Controladora responsável as receber e manipuluas requisições,
+            referentes as compras dos produtos.
+            </summary>
+        </member>
+        <member name="M:NPista.API.Controllers.CompraController.#ctor(NPista.Data.EFCore.Repositorios.VendaRepositorio,NPista.Data.EFCore.Repositorios.ProdutoRepositorio,Microsoft.Extensions.Options.IOptions{NPista.Core.Models.AppSettings},System.Net.Http.IHttpClientFactory)">
+            <summary>
+            Construtor da Classe
+            </summary>
+            <param name="compraRepositorio"></param>
+            <param name="produtoRepositorio"></param>
+            <param name="settings"></param>
+            <param name="httpClient"></param>
+        </member>
+        <member name="M:NPista.API.Controllers.CompraController.CreateCompra(NPista.Core.Models.Venda)">
+            <summary>
+            Cria e salva uma venda
+            </summary>
+            <param name="venda"></param>
+            /// <returns>
+            Mensagem de sucesso na operação
+            </returns>
+            <example>
+            
+            { "Valor": 100,  "Cartao": { "Titular" : "Antonio Lucas de Almeida", "Numero": "1234567891012", "DataExpiracao": "12/2018", "Bandeira": "Master", "Cvv": "145" }}
+            
+            </example>
+        </member>
+        <member name="M:NPista.API.Controllers.CompraController.CalculaValor(System.Double,System.Int32)">
+            <summary>
+            Calcula o valor da última venda
+            </summary>
+            <param name="valor"></param>
+            <param name="quantidade"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NPista.API.Controllers.CompraController.VerifyAuthorization(NPista.Core.Models.Cartao,System.Double)">
+            <summary>
+            Consulta se é autorizado realizar a venda ou não.
+            </summary>
+            <param name="cartao"></param>
+            <param name="valor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NPista.API.Controllers.CompraController.ConvertObj(NPista.Core.Models.Cartao)">
+            <summary>
+            Serializa um objeto no tipo compatível.
+            </summary>
+            <param name="cartao"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NPista.API.Controllers.ProdutoController">
+            <summary>
+            Produto Controller.
+            Classe responsável pelo recebimento das requisições referente ao produto.
+            </summary>
+        </member>
+        <member name="M:NPista.API.Controllers.ProdutoController.#ctor(NPista.Data.EFCore.Repositorios.ProdutoRepositorio)">
+            <summary>
+            Construtor da classe.
+            </summary>
+            <param name="produtoRepositorio"></param>
+        </member>
+        <member name="M:NPista.API.Controllers.ProdutoController.GetAllProdutos">
+            <summary>
+            Retorna todos os produtos cadastrados.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NPista.API.Controllers.ProdutoController.GetProdutoDetails(System.Int32)">
+            <summary>
+            Retorna um produto detalhado especifico por meio do seu identificador.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NPista.API.Controllers.ProdutoController.CreateProduto(NPista.Core.Models.Produto)">
+            <summary>
+            Armazenar um produto da base de dados.
+            </summary>
+            <param name="produto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:NPista.API.Controllers.ProdutoController.DeleteProduto(System.Int32)">
+            <summary>
+            Remove um produto da base de dados.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NPista.API.Helpers.InjectionHelper">
+            <summary>
+            Injection Helper.
+            Classe auxiliar para a injeção de dependeência.
+            </summary>
+        </member>
+        <member name="M:NPista.API.Helpers.InjectionHelper.IsSubclassOfRawGeneric(System.Type,System.Type)">
+            <summary>
+            Verifica se o tipo genérico é compatível com o tipo base
+            </summary>
+            <param name="generic"></param>
+            <param name="toCheck"></param>
+            <returns></returns>
+        </member>
+        <member name="T:NPista.API.Startup">
+            <summary>
+            Statup.
+            Classe Responsavel pela inicialização da API.
+            </summary>
+        </member>
+        <member name="P:NPista.API.Startup.Configuration">
+            <summary>
+            Configurações da aplicação.
+            </summary>
+        </member>
+        <member name="P:NPista.API.Startup.CurrentEnvironment">
+            <summary>
+            Variável de ambiente.
+            </summary>
+        </member>
+        <member name="M:NPista.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            COnstrutor da Classe.
+            </summary>
+            <param name="configuration"></param>
+            <param name="env"></param>
+        </member>
+        <member name="M:NPista.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Método de definições e configurações dos serviços.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:NPista.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Método de definições e configurações do APP.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+        <member name="T:NPista.API.Utils.ApiPagamentoUtils">
+            <summary>
+            API Pagamento Utils.
+            Classe responsável pelo consumo da API Pagamento.
+            </summary>
+        </member>
+        <member name="M:NPista.API.Utils.ApiPagamentoUtils.#ctor(NPista.Core.Models.AppSettings,System.Net.Http.IHttpClientFactory)">
+            <summary>
+            Construtor da classe.
+            </summary>
+            <param name="settings"></param>
+            <param name="httpClient"></param>
+        </member>
+        <member name="M:NPista.API.Utils.ApiPagamentoUtils.GetAuthorizationCompra(NPista.Core.Requests.CompraRequest)">
+             <summary>
+             Cria e envia a requisição para API.
+             </summary>
+             <example>
+            
+              { "Valor": 100, "Cartao": {  "Titular" : "Antonio Lucas de Almeida","Numero": "1234567891012", DataExpiracao": "12/2018", "Bandeira": "Master", "Cvv": "145" }}
+             
+             </example>
+             <param name="compra"></param>
+             <returns>
+              Retorna se foi autorizado ou não a realização da venda.
+             </returns>
+        </member>
+    </members>
+</doc>
